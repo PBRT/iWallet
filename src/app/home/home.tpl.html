@@ -2,7 +2,7 @@
 
     <div class="container-fluid">
         <div class="panel panel-default">
-                    <div id="odometer" class="odometer">132.01</div>
+                    <div id="odometer" class="odometer">{{grandTotal}}</div>
                     <i class="fa fa-eur fa-5x" style="vertical-align: middle;"></i>
         </div>
     </div>
@@ -54,10 +54,10 @@
             <div class="col-xs-6">
                 <ul class="list-group">
                     <li class="list-group-item list-group-item-danger" > Amount removed</li>
-                    <li class="list-group-item"><a>156.85€</a></li>
-                    <li class="list-group-item"><a>156.85€</a></li>
-                    <li class="list-group-item"><a>156.85€</a></li>
-                    <li class="list-group-item"><a>156.85€</a></li>
+                    <li class="list-group-item" ng-repeat="amount in removeList">
+                        <p>{{amount.value}}<i class="fa fa-euro"></i></p>
+                        <p>{{amout.date}}</p>
+                    </li>
                 </ul>
 
             </div>
@@ -65,10 +65,10 @@
             <div class="col-xs-6">
                 <ul class="list-group">
                     <li class="list-group-item list-group-item-success ">Amount added</li>
-                    <li class="list-group-item"><a>156.85€</a></li>
-                    <li class="list-group-item"><a>156.85€</a></li>
-                    <li class="list-group-item"><a>156.85€</a></li>
-                    <li class="list-group-item"><a>156.85€</a></li>
+                    <li class="list-group-item" ng-repeat="amount in addList">
+                        <p>{{amount.value}}<i class="fa fa-euro"></i></p>
+                        <p>{{amout.date}}</p>
+                    </li>
                 </ul>
             </div>
         </div>

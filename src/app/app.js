@@ -4,7 +4,8 @@ angular.module( 'iWallet', [
   'iWallet.home',
   'ui.router',
   'snap',
-  'ui.bootstrap'
+  'ui.bootstrap',
+  'iWalletService'
 ])
 
 .config( function myAppConfig ( $stateProvider, $urlRouterProvider,snapRemoteProvider ) {
