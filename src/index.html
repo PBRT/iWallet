@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html ng-app="iWallet">
+  <head>
+    <title> TT</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- font awesome from BootstrapCDN -->
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+
+    <!-- compiled CSS --><% styles.forEach( function ( file ) { %>
+    <link rel="stylesheet" type="text/css" href="<%= file %>" /><% }); %>
+    <link rel="stylesheet" type="text/css" href="assets/css/odometer-theme-train-station.css"/>
+    <link rel="stylesheet" type="text/css" href="assets/css/angular-snap.css"/>
+    <!-- compiled JavaScript --><% scripts.forEach( function ( file ) { %>
+    <script type="text/javascript" src="<%= file %>"></script><% }); %>
+
+  </head>
+  <body ng-controller="AppCtrl">
+
+      <snap-drawers>
+          <div snap-drawer="right">
+                  <div class="btn-block btn-group-vertical">
+                    <button class="btn btn-default" snap-close ng-repeat="item in globalMenu" ng-click="redirect(item.work)"> {{item.name}}</button>
+                  </div>
+          </div>
+      </snap-drawers>
+
+
+  <snap-content>
+
+        <div class="navbar navbar-inverse navbar-fixed-top"  role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" snap-toggle="right" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <i class="fa fa-bars fa-lg"></i>
+                    </button>
+                    <a class="navbar-brand" href="./">
+                        <i class="fa fa-suitcase"></i>
+                        iWallet
+                    </a>
+                </div>
+
+                <div class="navbar-right navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="hidden-xs" ng-repeat="item in globalMenu">
+                            <a ng-click="redirect(item.work)">{{item.name}}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+
+      <div class="views">
+            <div class="container" ui-view="main"></div>
+      </div>
+  </snap-content>
+  </body>
+
+
+<footer>
+    <div class="navbar navbar-inverse navbar-fixed-bottom" >
+        <div class="container">
+            <p class="footerContent"> Application made by Pierre Beard - Check my <a href="http://github.com/PBRT">Github</a> or my <a href="https://www.linkedin.com/pub/pierre-beard/62/690/4b0">Linkedin</a> </p>
+        </div>
+
+    </div>
+
+</footer>
+
+<!-- Modal Template -->
+<script type="text/ng-template" id="resetmodal.tpl.html">
+      <div class="modal-header">
+          <h3 class="modal-title">Reset Confirmation</h3>
+      </div>
+      <div class="modal-body">
+          <p>You are going to reset all the application. All the amount will be deleted as your wallet total amount. Are you sure you want to do that ?</p>
+      </div>
+      <div class="modal-footer">
+          <button class="btn btn-danger" ng-click="cancel()"> <i class="fa fa-times"></i><span> Cancel</span></button>
+          <button class="btn btn-success" ng-click="ok()"> <i class="fa fa-check"></i><span> I'm sure</span></button>
+      </div>
+
+</script>
+
+
+</html>
