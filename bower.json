@@ -9,6 +9,7 @@
     "angular-ui-router": "~0.2"
   },
   "dependencies": {
-    "angular-snap": "~1.6.0"
+    "angular-snap": "~1.6.0",
+    "angular-local-storage": "~0.0.7"
   }
 }

@@ -24,6 +24,10 @@ describe('walletService tests', function (){
         it('should have an getAddList function', function () {
             expect(angular.isFunction(iWalletService.getAddList)).toBe(true);
         });
+        it('should have an getCurrency function', function () {
+            expect(angular.isFunction(iWalletService.getCurrency)).toBe(true);
+            expect(iWalletService.getCurrency()).toEqual("euro");
+        });
         it('should have an getRemoveList function', function () {
             expect(angular.isFunction(iWalletService.getRemoveList)).toBe(true);
         });
@@ -38,6 +42,9 @@ describe('walletService tests', function (){
         });
         it('should have an resetGrandTotal function', function () {
             expect(angular.isFunction(iWalletService.resetGrandTotal)).toBe(true);
+        });
+        it('should have an resetfunction', function () {
+            expect(angular.isFunction(iWalletService.resetApplication)).toBe(true);
         });
         it('should have an setAddList function', function () {
             expect(angular.isFunction(iWalletService.setAddList)).toBe(true);
@@ -100,6 +107,7 @@ describe('walletService tests', function (){
         });
 
 
+
     });
 
     describe('objects functions tests', function() {
@@ -157,7 +165,7 @@ describe('walletService tests', function (){
 
     describe('add amount functions tests', function() {
 
-        var iWalletService;
+        var iWalletService,localStorageService;
         var item = {date: "06/11/1991", value:"10", type: "remove", currency:'euro'};
         var item1 = {value:"10", type: "remove", currency:'euro'};
         var item2 = {date: "06/11/1991", value:"25", type: "add", currency:'euro'};
@@ -168,14 +176,17 @@ describe('walletService tests', function (){
 
             // load the module.
             module('iWalletService');
+            module('LocalStorageModule');
 
             // inject your service for testing.
             // The _underscores_ are a convenience thing
             // so you can have your variable name be the
             // same as your injected service.
-            inject(function (_iWalletService_) {
+            inject(function (_iWalletService_, _localStorageService_) {
                 iWalletService = _iWalletService_;
+                localStorageService=_localStorageService_;
             });
+            localStorageService.clearAll();
         });
 
         //Check checkObject function
@@ -202,6 +213,10 @@ describe('walletService tests', function (){
             expect(iWalletService.getAddList()).toEqual([item2]);
             expect(iWalletService.getRemoveList()).toEqual([]);
             expect(iWalletService.getGrandTotal()).toEqual(25);
+
+            // Delete a key
+            localStorageService.clearAll();
+
         });
         it('should return 0 because all is fine', function () {
             var result;
@@ -214,6 +229,9 @@ describe('walletService tests', function (){
             expect(iWalletService.getRemoveList()).toEqual([item]);
             expect(iWalletService.getGrandTotal()).toEqual(15);
             expect(result).toEqual(0);
+
+            // Delete a key
+            localStorageService.clearAll();
 
         });
         it('should return false', function () {

@@ -70,7 +70,7 @@ module.exports = {
       'vendor/odometer/odometer.min.js',
       'vendor/snapjs/snap.js',
       'vendor/angular-snap/angular-snap.js',
-      'vendor/angular-media-queries/match-media.js'
+      'vendor/angular-local-storage/angular-local-storage.min.js'
 ],
     css: [
     ],

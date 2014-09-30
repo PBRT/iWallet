@@ -1,18 +1,31 @@
-angular.module('iWalletService', [])
+angular.module('iWalletService', ['LocalStorageModule'])
 
-.factory('iWalletService', function(){
+.factory('iWalletService', function(localStorageService){
+
+        //currency
+        var currency ="euro";
 
         //grand Total
         var grandTotal = 0.0;
+        if (localStorageService.get('grandTotal')) {
+            grandTotal = localStorageService.get('grandTotal');
+        }
 
         //Added amount list
         var addList = [];
+        if (localStorageService.get('add')) {
+            addList = localStorageService.get('add');
+        }
 
         //Removed amount list
         var removeList = [];
+        if (localStorageService.get('remove')) {
+            removeList = localStorageService.get('remove');
+        }
 
         //Amount object structure
         var amountStructure = [ 'date', 'value', 'currency','type'];
+
 
         return {
 
@@ -31,6 +44,10 @@ angular.module('iWalletService', [])
 
             getGrandTotal : function(){
                 return grandTotal;
+            },
+
+            getCurrency : function(){
+                return currency;
             },
 
             //Set
@@ -59,6 +76,16 @@ angular.module('iWalletService', [])
               grandTotal = 0.0;
             },
 
+            resetApplication : function(){
+                // Start fresh
+                localStorageService.clearAll();
+
+                this.resetAddList();
+                this.resetRemoveList();
+                this.resetGrandTotal();
+
+            },
+
             //add an amount
             addAmount : function(amount, cb){
 
@@ -67,13 +94,17 @@ angular.module('iWalletService', [])
                     if(val){
                         if(amount.type=='add') {
                             grandTotal += Number(amount.value);
+                            localStorageService.set('grandTotal', grandTotal);
                             addList.push(amount);
+                            localStorageService.set('add',addList);
                             cb(0);
                         }
                         else if(amount.type=='remove') {
                             if(self.authorizeTransaction(amount.value)){
                                 grandTotal -= amount.value;
+                                localStorageService.set('grandTotal', grandTotal);
                                 removeList.push(amount);
+                                localStorageService.set('remove',removeList);
                                 cb(0);
                             }else{
                                 cb(2);
@@ -123,6 +154,7 @@ angular.module('iWalletService', [])
                 result=grandTotal-val;
                 return Boolean(result>=0);
             }
+
         };
 
 });

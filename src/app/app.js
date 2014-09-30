@@ -66,10 +66,11 @@ angular.module( 'iWallet', [
 })
 
 /* Controller for the MODAL */
-.controller('AppCtrl.modal', function AppControllerModal ($scope, $modalInstance ){
+.controller('AppCtrl.modal', function AppControllerModal ($scope, $modalInstance, iWalletService ){
 
     $scope.ok = function () {
         $modalInstance.close();
+        iWalletService.resetApplication();
     };
 
     $scope.cancel = function () {
