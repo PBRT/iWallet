@@ -46,7 +46,7 @@ angular.module( 'iWallet', [
             }
             /*Source*/
             else if(path=="source"){
-                console.log('source');
+                window.open('http://github.com/PBRT/iWallet/tree/master/src', '_blank');
             }
             else{
                 alert('Wrong path, please reload the app');
