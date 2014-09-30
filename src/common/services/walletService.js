@@ -8,7 +8,7 @@ angular.module('iWalletService', ['LocalStorageModule'])
         //grand Total
         var grandTotal = 0.0;
         if (localStorageService.get('grandTotal')) {
-            grandTotal = localStorageService.get('grandTotal');
+            grandTotal = Number(localStorageService.get('grandTotal'));
         }
 
         //Added amount list
