@@ -32,5 +32,5 @@ When all tests and building is over, open ```build/index.html``` in your browser
 
 ##DEMO
 
-You can check the app hosted on heroku at this adress : TO COME
+You can check the app hosted on heroku at this [adress] (http://iwalletheroku.herokuapp.com/#/home)
 
