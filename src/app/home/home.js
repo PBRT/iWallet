@@ -15,12 +15,15 @@ angular.module( 'iWallet.home', [
     data:{ pageTitle: 'Home' }
   });
 })
-
 /* Controller HOME */
 .controller( 'HomeCtrl', function HomeController( $scope, $filter, iWalletService) {
 
         $scope.init = function(){
 
+            //accordion close
+            $scope.open = false;
+
+            //form empty
             $scope.formData ={};
 
             //Date initialization
@@ -28,16 +31,13 @@ angular.module( 'iWallet.home', [
 
             //Select box initialization
             $scope.formData.typeAmount="Add amount";
-
-            $scope.addList=iWalletService.getAddList();
-            $scope.removeList=iWalletService.getRemoveList();
-
         };
 
         //Add amount
         $scope.add = function(){
 
-            if(($scope.formData.typeAmount!==undefined)&&($scope.formData.monneyAmount!==undefined)){
+            if(($scope.formData.typeAmount!==undefined)&&($scope.formData.monneyAmount!==undefined)&&($scope.formData.monneyAmount!==0)){
+
                 var type =$scope.checkType($scope.formData.typeAmount);
                 if(type){
                     var item = {date : new Date(), value: Number($scope.formData.monneyAmount), currency : iWalletService.getCurrency(),type: type };
@@ -45,23 +45,25 @@ angular.module( 'iWallet.home', [
 
                         //No problem
                         if(ret===0){
-                            console.log("ook");
+                            //Close accordion
+                            $scope.open=false;
+                            $scope.formData.monneyAmount=undefined;
 
                          //Error
                         }else if(ret===1){
-                            console.log("error");
+                            alert("Wrong object, please reset the application");
 
                           //Wallet can't be negative
                         }else if(ret===2){
-                            console.log("not negative");
+                            alert("The wallet amount can't be negative");
                         }
                     });
                 }else{
-                    console.log("error selector");
+                    alert("you must choose a value between add/remove");
                     //TO DO handle error of selector
                 }
             }else{
-                console.log("undefined");
+                alert("You must define a value different from zero");
                 //TO DO handle error of undefined with ditry checking
             }
 
@@ -83,32 +85,14 @@ angular.module( 'iWallet.home', [
             return result;
         };
 
-        //Cancel Amount
+        //Cancel Amount and close accordion
         $scope.cancel = function(){
-
+            $scope.open=false;
         };
 
 
 
-}).directive('odometer',['iWalletService',function (iWalletService) {
-        return {
-            restrict: 'A',
-            link: function(scope, element, attrs) {
-
-                //Creates new instance
-                new Odometer({el: element[0], value: 0});
-
-                //Get the grandTotal value
-                element.text(iWalletService.getGrandTotal());
-
-                //Check when grandTotal change and update the dom
-                scope.$watch(function(){return iWalletService.getGrandTotal();}, function(newVal,oldVal){
-                    element.text(newVal);
-                });
-
-            }
-        };
-}]);
+});
 
 
 

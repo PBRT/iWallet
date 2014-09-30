@@ -5,7 +5,10 @@ angular.module( 'iWallet', [
   'ui.router',
   'snap',
   'ui.bootstrap',
-  'iWalletService'
+  'iWalletService',
+  'odometer',
+  'list',
+  'commonFilters'
 ])
 
 .config( function myAppConfig ( $stateProvider, $urlRouterProvider,snapRemoteProvider ) {

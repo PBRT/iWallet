@@ -2,7 +2,7 @@
 
     <div class="container-fluid">
         <div class="panel panel-default">
-                    <div odometer data-odometer></div>
+                    <div odometer-display data-odometer></div>
                     <i class="fa fa-eur fa-5x" style="vertical-align: middle;"></i>
         </div>
     </div>
@@ -12,7 +12,7 @@
         <div class="row" >
             <div class="col-xs-12">
                 <accordion>
-                    <accordion-group heading="Add or Remove an amount" >
+                    <accordion-group heading="Add or Remove an amount" is-open="$parent.open">
                             <form role="form">
                                 <div class="form-group">
                                     <div class="input-group">
@@ -52,27 +52,11 @@
     <div class="container-fluid">
         <div class="row" >
             <div class="col-xs-6">
-                <ul class="list-group">
-                    <li class="list-group-item list-group-item-danger" > Amount removed</li>
-                    <li class="list-group-item" ng-repeat="amount in removeList">
-                        <p>{{amount.value}}<i class="fa fa-euro"></i>
-                            <p class="dateText">{{amount.date | date:"MM/dd/yyyy 'at' h:mma"}}</p>
-                        </p>
-                    </li>
-                </ul>
-
+                <div list list-filter='dateFilter' list-type="removed" list-header-color="danger"></div>
             </div>
 
             <div class="col-xs-6">
-                <ul class="list-group">
-                    <li class="list-group-item list-group-item-success ">Amount added</li>
-                    <li class="list-group-item" ng-repeat="amount in addList">
-                        <p>{{amount.value}}
-                            <i class="fa fa-euro"></i>
-                            <p class="dateText">{{amount.date | date:"MM/dd/yyyy 'at' h:mma"}}</p>
-                        </p>
-                    </li>
-                </ul>
+                <div list list-filter='dateFilter' list-type="added" list-header-color="success"></div>
             </div>
         </div>
     </div>
