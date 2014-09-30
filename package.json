@@ -8,7 +8,9 @@
     "type": "git",
     "url": "git@github.com:PBRT/iWallet.git"
   },
-  "dependencies": {},
+  "dependencies": {
+    "express": "^3.0.0"
+  },
   "devDependencies": {
     "grunt": "~0.4.1",
     "grunt-bump": "0.0.6",
