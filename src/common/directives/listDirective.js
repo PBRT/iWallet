@@ -9,7 +9,7 @@ angular.module('list',['iWalletService'])
                 '<li class="list-group-item list-group-item-'+attrs.listHeaderColor+'">Amount '+attrs.listType+'</li>' +
                 '<li class="list-group-item" ng-repeat="amount in list">' +
                 '<p>' + "{{amount.value}}" +
-                '<i class="fa fa-euro"></i>' +
+                '<i class="fa fa-{{amount.currency}}"></i>' +
                 '<p class="dateText">' + '{{amount.date |' + attrs.listFilter + ' }}' + '</p>' +
                 '</p>' +
                 '</li>' +

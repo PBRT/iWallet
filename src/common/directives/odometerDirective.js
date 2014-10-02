@@ -19,4 +19,29 @@ angular.module('odometer', ['iWalletService'])
 
         }
     };
+}])
+//Change grand total currency
+.directive('currency',['iWalletService',function (iWalletService) {
+    return {
+        restrict: 'A',
+        require:'ngModel',
+        link: function(scope, element,attrs,model) {
+
+            //initialization
+            model.$setViewValue('eur');
+
+            scope.$watch(attrs.ngModel, function (v) {
+
+                iWalletService.setCurrentCurrency(v);
+                console.log(iWalletService.getCurrentCurrency());
+                //Call service function to convert grand total values
+                iWalletService.convertCurrency(v, function(val){
+                    if(val){
+                        iWalletService.setGrandTotal(val);
+                    }
+                });
+            });
+
+        }
+    };
 }]);

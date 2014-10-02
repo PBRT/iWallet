@@ -1,9 +1,19 @@
 <div ng-init="init()" class="home">
 
     <div class="container-fluid">
-        <div class="panel panel-default">
+        <div class="panel panel-default" style="padding-bottom: 20px">
                     <div odometer-display data-odometer></div>
                     <i class="fa fa-eur fa-5x" style="vertical-align: middle;"></i>
+            <div class="row">
+                <div class="col-xs-4 col-xs-offset-4">
+                    <select class="form-control" currency ng-model="grandTotal.currency" >
+                        <option>eur</option>
+                        <option>gbp</option>
+                        <option>usd</option>
+                    </select>
+                </div>
+            </div
+
         </div>
     </div>
 
@@ -13,13 +23,28 @@
             <div class="col-xs-12">
                 <accordion>
                     <accordion-group heading="Add or Remove an amount" is-open="$parent.open">
+
                             <form role="form">
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <div class="input-group-addon"><i class="fa fa-euro"></i> </div>
-                                        <input class="form-control" type="number" placeholder="Enter amount (euros)" ng-model="formData.monneyAmount">
+                                <div class="row">
+                                    <div class="col-xs-6 container-fluid">
+                                        <div class="form-group">
+                                            <!--<div class="input-group-addon">
+                                                <i class="fa fa-euro"></i>
+                                            </div>-->
+                                            <input type="number" class="form-control" id="exampleInputEmail1" placeholder="Enter amount" ng-model="formData.monneyAmount">
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <div class="form-group">
+                                            <select class="form-control" ng-model="formData.currency">
+                                                <option>eur</option>
+                                                <option>gbp</option>
+                                                <option>usd</option>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
+
                                 <div class="form-group">
                                     <div class="input-group">
                                         <div class="input-group-addon"><i class="fa fa-calendar"></i> </div>
@@ -27,10 +52,10 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                <select class="form-control" ng-model="formData.typeAmount">
-                                    <option>Add amount</option>
-                                    <option>Remove amount</option>
-                                </select>
+                                    <select class="form-control" ng-model="formData.typeAmount">
+                                        <option>Add amount</option>
+                                        <option>Remove amount</option>
+                                    </select>
                                 </div>
                             </form>
 

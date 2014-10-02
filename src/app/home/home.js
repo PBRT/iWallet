@@ -31,39 +31,51 @@ angular.module( 'iWallet.home', [
 
             //Select box initialization
             $scope.formData.typeAmount="Add amount";
+
+            //Select box initialization
+            $scope.formData.currency="eur";
         };
 
         //Add amount
         $scope.add = function(){
 
-            if(($scope.formData.typeAmount!==undefined)&&($scope.formData.monneyAmount!==undefined)&&($scope.formData.monneyAmount!==0)){
+            if(($scope.formData.typeAmount!==undefined)&&($scope.formData.monneyAmount!==undefined)&&($scope.formData.currency!==undefined)&&($scope.formData.monneyAmount!==0)){
 
                 var type =$scope.checkType($scope.formData.typeAmount);
                 if(type){
-                    var item = {date : new Date(), value: Number($scope.formData.monneyAmount), currency : iWalletService.getCurrency(),type: type };
-                    iWalletService.addAmount(item, function(ret){
+                    if($scope.checkCurrency($scope.formData.currency)) {
+                        var item = {date: new Date(), value: Number($scope.formData.monneyAmount), currency: $scope.formData.currency, type: type };
+                        iWalletService.addAmount(item, function (ret) {
 
-                        //No problem
-                        if(ret===0){
-                            //Close accordion
-                            $scope.open=false;
-                            $scope.formData.monneyAmount=undefined;
+                            //No problem
+                            if (ret === 0) {
+                                //Close accordion
+                                $scope.open = false;
+                                $scope.formData.monneyAmount = undefined;
+                                return 0;
 
-                         //Error
-                        }else if(ret===1){
-                            alert("Wrong object, please reset the application");
+                                //Error
+                            } else if (ret === 1) {
+                                alert("Wrong object, please reset the application");
+                                return 1;
 
-                          //Wallet can't be negative
-                        }else if(ret===2){
-                            alert("The wallet amount can't be negative");
-                        }
-                    });
+                                //Wallet can't be negative
+                            } else if (ret === 2) {
+                                alert("The wallet amount can't be negative");
+                                return 2;
+                            }
+                        });
+                    }else{
+                        alert("wrong currency");
+                    }
                 }else{
                     alert("you must choose a value between add/remove");
+                    return 1;
                     //TO DO handle error of selector
                 }
             }else{
                 alert("You must define a value different from zero");
+                return 1;
                 //TO DO handle error of undefined with ditry checking
             }
 
@@ -83,6 +95,14 @@ angular.module( 'iWallet.home', [
             }
 
             return result;
+        };
+
+        $scope.checkCurrency = function(val){
+            if((val!="eur")&&(val!="usd")&&(val!="gbp")){
+                return false;
+            }else{
+                return true;
+            }
         };
 
         //Cancel Amount and close accordion

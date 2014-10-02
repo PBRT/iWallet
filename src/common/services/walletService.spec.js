@@ -24,10 +24,6 @@ describe('walletService tests', function (){
         it('should have an getAddList function', function () {
             expect(angular.isFunction(iWalletService.getAddList)).toBe(true);
         });
-        it('should have an getCurrency function', function () {
-            expect(angular.isFunction(iWalletService.getCurrency)).toBe(true);
-            expect(iWalletService.getCurrency()).toEqual("euro");
-        });
         it('should have an getRemoveList function', function () {
             expect(angular.isFunction(iWalletService.getRemoveList)).toBe(true);
         });
@@ -82,12 +78,12 @@ describe('walletService tests', function (){
             expect(iWalletService.getGrandTotal()).toEqual(10);
         });
         it('should add an item to AddList', function () {
-            var item = [{date: "06/11/1991", value:"10", type: "add", currency:'euro'}];
+            var item = [{date: "06/11/1991", value:"10", type: "add", currency:'eur'}];
             iWalletService.setAddList(item);
             expect(iWalletService.getAddList()).toEqual(item);
         });
         it('should add an item to RemoveList', function () {
-            var item = [{date: "06/11/1991", value:"10", type: "remove", currency:'euro'}];
+            var item = [{date: "06/11/1991", value:"10", type: "remove", currency:'eur'}];
             iWalletService.setRemoveList(item);
             expect(iWalletService.getRemoveList()).toEqual(item);
         });
@@ -113,10 +109,10 @@ describe('walletService tests', function (){
     describe('objects functions tests', function() {
 
         var iWalletService;
-        var item = {date: "06/11/1991", value:"10", type: "remove", currency:'euro'};
-        var item1 = {value:"10", type: "remove", currency:'euro'};
-        var item2 = {date: "06/11/1991", nom:"10", type: "remove", currency:'euro'};
-        var item3 = {date1:"06/88/48",date: "06/11/1991", value:"10", type: "remove", currency:'euro'};
+        var item = {date: "06/11/1991", value:"10", type: "remove", currency:'eur'};
+        var item1 = {value:"10", type: "remove", currency:'eur'};
+        var item2 = {date: "06/11/1991", nom:"10", type: "remove", currency:'eur'};
+        var item3 = {date1:"06/88/48",date: "06/11/1991", value:"10", type: "remove", currency:'eur'};
 
         // excuted before each "it" is run.
         beforeEach(function ($injector) {
@@ -166,9 +162,9 @@ describe('walletService tests', function (){
     describe('add amount functions tests', function() {
 
         var iWalletService,localStorageService;
-        var item = {date: "06/11/1991", value:"10", type: "remove", currency:'euro'};
-        var item1 = {value:"10", type: "remove", currency:'euro'};
-        var item2 = {date: "06/11/1991", value:"25", type: "add", currency:'euro'};
+        var item = {date: "06/11/1991", value:"10", type: "remove", currency:'eur'};
+        var item1 = {value:"10", type: "remove", currency:'eur'};
+        var item2 = {date: "06/11/1991", value:"25", type: "add", currency:'eur'};
 
 
         // excuted before each "it" is run.
