@@ -8,7 +8,8 @@ angular.module( 'iWallet', [
   'iWalletService',
   'odometer',
   'list',
-  'commonFilters'
+  'commonFilters',
+  'constants'
 ])
 
 .config( function myAppConfig ( $stateProvider, $urlRouterProvider,snapRemoteProvider ) {
@@ -69,7 +70,7 @@ angular.module( 'iWallet', [
 })
 
 /* Controller for the MODAL */
-.controller('AppCtrl.modal', function AppControllerModal ($scope, $modalInstance, iWalletService ){
+.controller('AppCtrl.modal', function AppControllerModal ($scope, $modalInstance, iWalletService){
 
     $scope.ok = function () {
         $modalInstance.close();
@@ -79,5 +80,6 @@ angular.module( 'iWallet', [
     $scope.cancel = function () {
         $modalInstance.dismiss('cancel');
     };
+
 });
 

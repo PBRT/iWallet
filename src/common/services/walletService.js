@@ -1,6 +1,12 @@
 angular.module('iWalletService', ['LocalStorageModule'])
 
-.factory('iWalletService', function(localStorageService){
+    //TO DO : create second service dedicated to currency managmenet
+    //      : test new service functionnalites
+    //      : implement resources and test it!
+
+
+.factory('iWalletService',function(localStorageService){
+
 
         //grand Total
         var grandTotal = 0.0;
@@ -8,7 +14,15 @@ angular.module('iWalletService', ['LocalStorageModule'])
             grandTotal = Number(localStorageService.get('grandTotal'));
         }
 
+        //FETCH DATA FROM ZEND REST SERVER ======================
+        //Use amount resource to fetch all amount and sort in the two lists
         //Added amount list
+        /*amountResource.query({}, function(data){
+            addList=data.add;
+            removeList=data.remove;
+        }, function(err){
+            //Manage error to the interface
+        })*/
         var addList = [];
         if (localStorageService.get('add')) {
             addList = localStorageService.get('add');
@@ -19,12 +33,18 @@ angular.module('iWalletService', ['LocalStorageModule'])
         if (localStorageService.get('remove')) {
             removeList = localStorageService.get('remove');
         }
+        //=======================================================
 
         //Amount object structure
         var amountStructure = [ 'date', 'value', 'currency','type'];
 
         //currency rates exchanges
         //SOON LOADED FROM REST ZEND SERVER
+        /*currencyResource.query({}, function(data){
+
+        },function(err){
+
+        });*/
         var currencyRates = [
            {currency : "eur", rates : [ {currency: "usd", rates : 1.26},
                                         {currency: "gbp", rates : 0.78}]},
@@ -33,6 +53,7 @@ angular.module('iWalletService', ['LocalStorageModule'])
            {currency : "gbp", rates : [ {currency: "eur", rates : 1.27},
                                         {currency: "usd", rates : 1.61}]}
         ];
+        //=======================================================
 
         var currentCurrency = "eur";
 
@@ -95,13 +116,16 @@ angular.module('iWalletService', ['LocalStorageModule'])
                 // Start fresh
                 localStorageService.clearAll();
 
+                //TO DO send to REST
+                //amountResource.deleteAmount({}, function(data){}, function(err){});
+
                 this.resetAddList();
                 this.resetRemoveList();
                 this.resetGrandTotal();
 
             },
 
-            //add an amount
+            //add  or remove an amount
             addAmount : function(amount, cb){
 
                 var self=this;
@@ -113,12 +137,11 @@ angular.module('iWalletService', ['LocalStorageModule'])
                             //Add to list
                             addList.push(amount);
                             localStorageService.set('add', addList);
+                            //TO DO send to REST
+                            //amountResource.addAmount({amount : amount}, function(data){}, function(err){});
 
                             //Convert value for grand total
                             if(amount.currency!=self.getCurrentCurrency()){
-                                console.log("DIFFERER");
-                                console.log(amount.currency);
-                                console.log(self.getCurrentCurrency());
                                 self.convertValue(amount.value, amount.currency,self.getCurrentCurrency() ,function(val){
                                     var result = 0;
                                     result = self.getGrandTotal() + Number(val);
@@ -145,6 +168,8 @@ angular.module('iWalletService', ['LocalStorageModule'])
                                         }else {
                                             removeList.push(amount);
                                             localStorageService.set('remove', removeList);
+                                            //TO DO send to REST
+                                            //amountResource.addAmount({amount : amount}, function(data){}, function(err){});
                                             self.setGrandTotal(result);
                                             localStorageService.set('grandTotal', result);
                                             cb(0);

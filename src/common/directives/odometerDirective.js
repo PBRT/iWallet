@@ -33,7 +33,6 @@ angular.module('odometer', ['iWalletService'])
             scope.$watch(attrs.ngModel, function (v) {
 
                 iWalletService.setCurrentCurrency(v);
-                console.log(iWalletService.getCurrentCurrency());
                 //Call service function to convert grand total values
                 iWalletService.convertCurrency(v, function(val){
                     if(val){
@@ -42,6 +41,22 @@ angular.module('odometer', ['iWalletService'])
                 });
             });
 
+        }
+    };
+}])
+
+//Update logo -- TO BIND WITH CURRENCY LIST
+.directive('logo',['iWalletService',function (iWalletService) {
+    return {
+        restrict: 'A',
+        link: function(scope, element,attrs,model) {
+
+            //Check when grandTotal change and update the dom
+            scope.$watch(function(){return iWalletService.getCurrentCurrency();}, function(newVal){
+                var cl = "fa fa-"+newVal+" fa-5x";
+                element.removeAttr('class');
+                element.addClass(cl);
+            });
         }
     };
 }]);

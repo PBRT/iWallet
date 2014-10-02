@@ -1,5 +1,6 @@
 angular.module('list',['iWalletService'])
 
+
 //Template of a list, updated from iWalletService
 .directive('list',['iWalletService', function (iWalletService) {
     return {
